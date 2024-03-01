@@ -1,11 +1,27 @@
 package com.example.tasklistfragments
 
-import androidx.appcompat.app.AppCompatActivity
+import android.R.attr
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.example.tasklistfragments.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        replaceFragment(MainFragment())
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .setReorderingAllowed(true)
+            .commitNow()
     }
 }
